@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Title Generator — Smart Finance Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #18181f;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6dfa;
+      --accent-glow: rgba(124,109,250,0.2);
+      --text: #f0eff8;
+      --muted: #6e6d82;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,109,250,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,109,250,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1rem,4vw,3rem);
+      height: 64px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { color: #00e5a0; }
+
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: #00e5a0;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: clamp(0.5rem,2vw,2rem);
+      align-items: center;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color var(--transition);
+      white-space: nowrap;
+    }
+
+    nav ul a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: #00e5a0 !important;
+      color: #000 !important;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.8rem !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      border: none;
+      background: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0;
+      background: rgba(10,10,15,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .mobile-menu a:hover { color: var(--text); background: var(--surface); }
+
+    /* MAIN */
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(2rem,6vw,5rem) clamp(1rem,4vw,3rem);
+    }
+
+    /* CARD */
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(1.75rem,5vw,3rem);
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(124,109,250,0.12);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .tool-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem,4vw,1.7rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .tool-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* FORM */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    input[type="text"]::placeholder { color: var(--muted); }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .btn-generate {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: -0.01em;
+    }
+
+    .btn-generate:hover {
+      background: #9b8ffb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-generate:active { transform: translateY(0); }
+
+    /* RESULTS */
+    .results {
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .results.visible { display: flex; }
+
+    .results-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .title-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      transition: border-color var(--transition);
+      cursor: pointer;
+    }
+
+    .title-item:hover { border-color: rgba(124,109,250,0.4); }
+
+    .title-item.highlight {
+      border-color: var(--accent);
+      background: rgba(124,109,250,0.07);
+    }
+
+    .title-text {
+      font-family: var(--font-display);
+      font-size: clamp(0.88rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .copy-btn.copied {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .error-msg {
+      font-size: 0.85rem;
+      color: #ff6b6b;
+      text-align: center;
+      padding: 0.75rem;
+      background: rgba(255,107,107,0.08);
+      border: 1px solid rgba(255,107,107,0.2);
+      border-radius: var(--radius-sm);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    footer .copyright {
+      color: var(--muted);
+      font-size: 0.8rem;
+      width: 100%;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      nav ul     { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">💡</div>
+      Smart<span>Finance</span>
+    </a>
+    <ul>
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="#" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="toggleMenu()">Finance</a>
+    <a href="#" onclick="toggleMenu()">AI Tools</a>
+    <a href="#" onclick="toggleMenu()">Calculators</a>
+    <a href="#" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <main>
+    <div class="tool-card">
+
+      <div class="tool-header">
+        <div class="tool-icon">✍️</div>
+        <div>
+          <h1>Blog Title Generator</h1>
+          <p class="tool-subtitle">Generate click-worthy titles instantly</p>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="topic">Your Topic</label>
+        <input type="text" id="topic" placeholder="e.g. personal finance, productivity…" />
+      </div>
+
+      <button class="btn-generate" onclick="generate()">Generate Titles</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-brand">Smart Finance Tools</div>
+    <ul class="footer-links">
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
+  </footer>
+
+  <script>
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    // Title templates
+    const templates = [
+      t => `10 Tips About ${t} You Wish You Knew Sooner`,
+      t => `The Complete Beginner's Guide to ${t}`,
+      t => `How to Master ${t} in 30 Days`,
+      t => `Why Most People Get ${t} Wrong (And How to Fix It)`,
+      t => `The Secrets of ${t} Nobody Talks About`,
+      t => `${t}: Everything You Need to Know in 2026`,
+      t => `7 Common ${t} Mistakes and How to Avoid Them`,
+      t => `How I Doubled My Results with ${t}`,
+      t => `The Ultimate ${t} Checklist for Beginners`,
+      t => `What Experts Won't Tell You About ${t}`,
+      t => `${t} Made Simple: A Step-by-Step Guide`,
+      t => `Is ${t} Worth It? An Honest Review`,
+    ];
+
+    function generate() {
+      const topic   = document.getElementById('topic').value.trim();
+      const results = document.getElementById('results');
+
+      results.className = 'results';
+      results.innerHTML = '';
+
+      if (!topic) {
+        results.classList.add('visible');
+        results.innerHTML = '<p class="error-msg">Please enter a topic first.</p>';
+        return;
+      }
+
+      // Pick 5 unique random templates
+      const shuffled = [...templates].sort(() => Math.random() - 0.5).slice(0, 5);
+
+      const html = `
+        <span class="results-label">Generated Titles</span>
+        ${shuffled.map((fn, i) => {
+          const title = fn(topic);
+          return `
+            <div class="title-item ${i === 0 ? 'highlight' : ''}" onclick="copyTitle(this, '${title.replace(/'/g, "\\'")}')">
+              <span class="title-text">${title}</span>
+              <button class="copy-btn" onclick="event.stopPropagation(); copyTitle(this.closest('.title-item'), '${title.replace(/'/g, "\\'")}')">Copy</button>
+            </div>
+          `;
+        }).join('')}
+      `;
+
+      results.classList.add('visible');
+      results.innerHTML = html;
+    }
+
+    function copyTitle(item, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = item.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Enter key support
+    document.getElementById('topic').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') generate();
+    });
+  </script>
+
+</body>
+</html>

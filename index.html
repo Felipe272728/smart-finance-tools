@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Finance Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">💡</div>
+      Smart<span>Finance</span>
+    </a>
+    <ul>
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="#" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="toggleMenu()">Finance</a>
+    <a href="#" onclick="toggleMenu()">AI Tools</a>
+    <a href="#" onclick="toggleMenu()">Calculators</a>
+    <a href="#" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <header>
+    <div class="hero-badge">100% Free — No Sign-up Required</div>
+    <h2>Free Smart Finance<br>& <em>AI Tools</em></h2>
+    <p>Free online calculators and AI generators to simplify your finances and spark your creativity.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Tools</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Free</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">AI</span>
+        <span class="stat-label">Powered</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="ad">AdSense Banner Space</section>
+
+  <section class="tools">
+    <div class="section-header">
+      <div class="section-icon finance">📊</div>
+      <h3>Finance Calculators</h3>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid">
+      <a class="card finance" href="loan-calculator.html">
+        <div class="card-icon">🏦</div>
+        <h4>Loan Calculator</h4>
+        <p>Calculate monthly loan payments and total interest with ease.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card finance" href="profit-calculator.html">
+        <div class="card-icon">💰</div>
+        <h4>Profit Calculator</h4>
+        <p>Calculate profit margins from revenue and cost in seconds.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card finance" href="roi-calculator.html">
+        <div class="card-icon">📈</div>
+        <h4>ROI Calculator</h4>
+        <p>Measure return on investment and make smarter decisions.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card finance" href="currency-converter.html">
+        <div class="card-icon">💱</div>
+        <h4>Currency Converter</h4>
+        <p>Convert currencies instantly with live exchange rates.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="tools">
+    <div class="section-header">
+      <div class="section-icon ai">✨</div>
+      <h3>AI Generators</h3>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid">
+      <a class="card ai" href="business-name-generator.html">
+        <div class="card-icon">🏢</div>
+        <h4>Business Name Generator</h4>
+        <p>Generate creative, memorable business names powered by AI.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card ai" href="blog-title-generator.html">
+        <div class="card-icon">✍️</div>
+        <h4>Blog Title Generator</h4>
+        <p>Create compelling blog titles that drive clicks and engagement.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card ai" href="slogan-generator.html">
+        <div class="card-icon">🎯</div>
+        <h4>Slogan Generator</h4>
+        <p>Craft punchy marketing slogans that stick in people's minds.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="tools">
+    <div class="section-header">
+      <div class="section-icon general">🧮</div>
+      <h3>General Calculators</h3>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid">
+      <a class="card general" href="percentage-calculator.html">
+        <div class="card-icon">%</div>
+        <h4>Percentage Calculator</h4>
+        <p>Calculate percentages, increases, and decreases instantly.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card general" href="age-calculator.html">
+        <div class="card-icon">🎂</div>
+        <h4>Age Calculator</h4>
+        <p>Find out your exact age in years, months, and days.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+      <a class="card general" href="discount-calculator.html">
+        <div class="card-icon">🏷️</div>
+        <h4>Discount Calculator</h4>
+        <p>Calculate sale prices and how much you save on discounts.</p>
+        <span class="card-arrow">Open Tool →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="ad">AdSense Banner Space</section>
+
+  <footer>
+    <div class="footer-brand">Smart Finance Tools</div>
+    <ul class="footer-links">
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <a href="about.html">About</a>
+
+<a href="contact.html">Contact</a>
+
+<a href="privacy.html">Privacy Policy</a>
+
+</body>
+</html>
