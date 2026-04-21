@@ -1,172 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="NTF07DP9-kvieXeQz5skDglCicNgL2rpJaAFkq2wn9Q" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Finance Tools</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+<meta name="google-site-verification" content="NTF07DP9-kvieXeQz5skDglCicNgL2rpJaAFkq2wn9Q" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Online Calculators & AI Tools | Smart Finance Tools</title>
+
+<meta name="description" content="Free online calculators and AI tools. Loan calculator, ROI calculator, BMI calculator, savings calculator, percentage calculator, currency converter and more.">
+<meta name="keywords" content="finance calculator, loan calculator, roi calculator, percentage calculator, bmi calculator, savings calculator, discount calculator, age calculator, currency converter">
+<meta name="robots" content="index, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #00e5a0;
+    --accent-glow: rgba(0,229,160,0.15);
+    --accent-dim: rgba(0,229,160,0.08);
+    --text: #f0eff8;
+    --muted: #6e6d82;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(1rem,4vw,3rem);
+    height: 64px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-logo-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 7px;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: clamp(0.5rem,2vw,2rem);
+    align-items: center;
+  }
+
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color var(--transition);
+    white-space: nowrap;
+  }
+
+  nav ul a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent) !important;
+    color: #000 !important;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    border: none;
+    background: none;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all var(--transition);
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0; right: 0;
+    background: rgba(10,10,15,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    z-index: 99;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+  }
+
+  .mobile-menu a:hover { color: var(--text); background: var(--surface); }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  /* HERO */
+  header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: clamp(3rem,8vw,6rem) clamp(1rem,4vw,3rem) clamp(2rem,5vw,4rem);
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(0,229,160,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 100px;
+    padding: 5px 14px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem,7vw,4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.5s ease 0.05s both;
+  }
+
+  header h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  header p {
+    font-size: clamp(0.95rem,2vw,1.1rem);
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+
+  /* AD BANNER */
+  .ad {
+    position: relative;
+    z-index: 1;
+    margin: 0 clamp(1rem,4vw,3rem) 2rem;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* TOOL SECTIONS */
+  .tools {
+    position: relative;
+    z-index: 1;
+    padding: 0 clamp(1rem,4vw,3rem) 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .tools h3 {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .tools h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.85rem;
+  }
+
+  /* CARDS */
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+    text-decoration: none;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    gap: 0.75rem;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  }
+
+  .card h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-arrow {
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity var(--transition), transform var(--transition);
+    display: inline-block;
+  }
+
+  .card:hover .card-arrow { opacity: 1; transform: translateX(3px); }
+
+  /* FINANCE */
+  .card.finance {
+    border-color: var(--border);
+  }
+
+  .card.finance:hover { border-color: rgba(0,229,160,0.35); }
+
+  .card.finance .card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 6px;
+    padding: 3px 8px;
+    align-self: flex-start;
+  }
+
+  /* AI */
+  .card.ai {
+    border-color: var(--border);
+  }
+
+  .card.ai:hover { border-color: rgba(124,109,250,0.35); }
+
+  .card.ai .card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a78bfa;
+    background: rgba(124,109,250,0.08);
+    border: 1px solid rgba(124,109,250,0.15);
+    border-radius: 6px;
+    padding: 3px 8px;
+    align-self: flex-start;
+  }
+
+  /* GENERAL */
+  .card.general {
+    border-color: var(--border);
+  }
+
+  .card.general:hover { border-color: rgba(251,191,36,0.35); }
+
+  .card.general .card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fbbf24;
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.15);
+    border-radius: 6px;
+    padding: 3px 8px;
+    align-self: flex-start;
+  }
+
+  /* SEO TEXT */
+  .seo-text {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem,4vw,3rem) 4rem;
+  }
+
+  .seo-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: clamp(1.5rem,4vw,2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .seo-inner h2 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: -0.5rem;
+  }
+
+  .seo-inner p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .seo-inner ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .seo-inner ul li {
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,229,160,0.15);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-weight: 500;
+  }
+
+  .seo-inner h3 {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: -0.75rem;
+  }
+
+  .faq-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,3rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color var(--transition);
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  footer .copyright {
+    color: var(--muted);
+    font-size: 0.8rem;
+    width: 100%;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    nav ul     { display: none; }
+    .hamburger { display: flex; }
+    .grid      { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 380px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
+
 <body>
 
-  <nav>
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">💡</div>
-      Smart<span>Finance</span>
-    </a>
-    <ul>
-      <li><a href="#">Finance</a></li>
-      <li><a href="#">AI Tools</a></li>
-      <li><a href="#">Calculators</a></li>
-      <li><a href="#" class="nav-cta">Contact</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">💡</div>
+    Smart<span>Finance</span>
+  </a>
+  <ul>
+    <li><a href="#">Finance</a></li>
+    <li><a href="#">AI Tools</a></li>
+    <li><a href="#">Calculators</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#" onclick="toggleMenu()">Finance</a>
-    <a href="#" onclick="toggleMenu()">AI Tools</a>
-    <a href="#" onclick="toggleMenu()">Calculators</a>
-    <a href="#" onclick="toggleMenu()">Contact</a>
-  </div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="toggleMenu()">Finance</a>
+  <a href="#" onclick="toggleMenu()">AI Tools</a>
+  <a href="#" onclick="toggleMenu()">Calculators</a>
+  <a href="contact.html" onclick="toggleMenu()">Contact</a>
+</div>
+
+<main>
 
   <header>
     <div class="hero-badge">100% Free — No Sign-up Required</div>
     <h2>Free Smart Finance<br>& <em>AI Tools</em></h2>
-    <p>Free online calculators and AI generators to simplify your finances and spark your creativity.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-number">10+</span>
-        <span class="stat-label">Tools</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Free</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">AI</span>
-        <span class="stat-label">Powered</span>
-      </div>
-    </div>
+    <p>Free online calculators and AI generators to simplify your finances.</p>
   </header>
 
   <section class="ad">AdSense Banner Space</section>
 
   <section class="tools">
-    <div class="section-header">
-      <div class="section-icon finance">📊</div>
-      <h3>Finance Calculators</h3>
-      <div class="section-line"></div>
-    </div>
+    <h3>Finance Calculators</h3>
     <div class="grid">
+
       <a class="card finance" href="loan-calculator.html">
-        <div class="card-icon">🏦</div>
+        <span class="card-tag">Finance</span>
         <h4>Loan Calculator</h4>
-        <p>Calculate monthly loan payments and total interest with ease.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card finance" href="profit-calculator.html">
-        <div class="card-icon">💰</div>
+        <span class="card-tag">Finance</span>
         <h4>Profit Calculator</h4>
-        <p>Calculate profit margins from revenue and cost in seconds.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card finance" href="roi-calculator.html">
-        <div class="card-icon">📈</div>
+        <span class="card-tag">Finance</span>
         <h4>ROI Calculator</h4>
-        <p>Measure return on investment and make smarter decisions.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card finance" href="currency-converter.html">
-        <div class="card-icon">💱</div>
+        <span class="card-tag">Finance</span>
         <h4>Currency Converter</h4>
-        <p>Convert currencies instantly with live exchange rates.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
     </div>
   </section>
 
   <section class="tools">
-    <div class="section-header">
-      <div class="section-icon ai">✨</div>
-      <h3>AI Generators</h3>
-      <div class="section-line"></div>
-    </div>
+    <h3>AI Generators</h3>
     <div class="grid">
+
       <a class="card ai" href="business-name-generator.html">
-        <div class="card-icon">🏢</div>
+        <span class="card-tag">AI</span>
         <h4>Business Name Generator</h4>
-        <p>Generate creative, memorable business names powered by AI.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card ai" href="blog-title-generator.html">
-        <div class="card-icon">✍️</div>
+        <span class="card-tag">AI</span>
         <h4>Blog Title Generator</h4>
-        <p>Create compelling blog titles that drive clicks and engagement.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card ai" href="slogan-generator.html">
-        <div class="card-icon">🎯</div>
+        <span class="card-tag">AI</span>
         <h4>Slogan Generator</h4>
-        <p>Craft punchy marketing slogans that stick in people's minds.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
     </div>
   </section>
 
   <section class="tools">
-    <div class="section-header">
-      <div class="section-icon general">🧮</div>
-      <h3>General Calculators</h3>
-      <div class="section-line"></div>
-    </div>
+    <h3>General Calculators</h3>
     <div class="grid">
+
       <a class="card general" href="percentage-calculator.html">
-        <div class="card-icon">%</div>
+        <span class="card-tag">General</span>
         <h4>Percentage Calculator</h4>
-        <p>Calculate percentages, increases, and decreases instantly.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card general" href="age-calculator.html">
-        <div class="card-icon">🎂</div>
+        <span class="card-tag">General</span>
         <h4>Age Calculator</h4>
-        <p>Find out your exact age in years, months, and days.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
       <a class="card general" href="discount-calculator.html">
-        <div class="card-icon">🏷️</div>
+        <span class="card-tag">General</span>
         <h4>Discount Calculator</h4>
-        <p>Calculate sale prices and how much you save on discounts.</p>
-        <span class="card-arrow">Open Tool →</span>
+        <span class="card-arrow">→</span>
       </a>
+
     </div>
   </section>
 
   <section class="ad">AdSense Banner Space</section>
 
-  <footer>
-    <div class="footer-brand">Smart Finance Tools</div>
-    <ul class="footer-links">
-      <li><a href="#">Finance</a></li>
-      <li><a href="#">AI Tools</a></li>
-      <li><a href="#">Calculators</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
-  </footer>
+  <section class="seo-text">
+    <div class="seo-inner">
 
-  <script src="script.js"></script>
+      <h2>Free Online Calculators and Finance Tools</h2>
+      <p>Smart Finance Tools is a free website that provides online calculators and AI tools to help users solve everyday problems quickly. You can calculate loans, profits, percentages, savings, and more.</p>
 
-  <a href="about.html">About</a>
+      <h2>Finance Calculators</h2>
+      <p>Our finance calculators include loan calculator, ROI calculator, profit calculator and currency converter to help you make better financial decisions.</p>
 
-<a href="contact.html">Contact</a>
+      <h2>General Calculators</h2>
+      <p>We also provide useful calculators like percentage calculator, age calculator and discount calculator for daily use.</p>
 
-<a href="privacy.html">Privacy Policy</a>
+      <h2>AI Tools</h2>
+      <p>Use our AI generators to create business names, blog titles and slogans instantly.</p>
+
+      <h2>Why use our tools?</h2>
+      <ul>
+        <li>✓ 100% free</li>
+        <li>✓ No registration required</li>
+        <li>✓ Fast and simple</li>
+        <li>✓ Mobile friendly</li>
+      </ul>
+
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <h3>Are these calculators free?</h3>
+        <p>Yes, all tools are completely free.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need an account?</h3>
+        <p>No signup is required.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I use it on mobile?</h3>
+        <p>Yes, all tools work on any device.</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-brand">Smart Finance Tools</div>
+  <ul class="footer-links">
+    <li><a href="#">Finance</a></li>
+    <li><a href="#">AI Tools</a></li>
+    <li><a href="#">Calculators</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.querySelector('.hamburger');
+    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
 
 </body>
 </html>
