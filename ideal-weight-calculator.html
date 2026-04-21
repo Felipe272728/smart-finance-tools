@@ -1,0 +1,787 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ideal Weight Calculator — Smart Finance Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #18181f;
+      --border: rgba(255,255,255,0.07);
+      --accent: #00e5a0;
+      --accent-glow: rgba(0,229,160,0.15);
+      --accent-dim: rgba(0,229,160,0.08);
+      --text: #f0eff8;
+      --muted: #6e6d82;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1rem,4vw,3rem);
+      height: 64px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: clamp(0.5rem,2vw,2rem);
+      align-items: center;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color var(--transition);
+      white-space: nowrap;
+    }
+
+    nav ul a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #000 !important;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.8rem !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      border: none;
+      background: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0; right: 0;
+      background: rgba(10,10,15,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+    }
+
+    .mobile-menu a:hover { color: var(--text); background: var(--surface); }
+
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(2rem,6vw,5rem) clamp(1rem,4vw,3rem);
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(1.75rem,5vw,3rem);
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-dim);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .tool-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem,4vw,1.7rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .tool-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* UNIT TOGGLE */
+    .unit-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .unit-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 7px;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all var(--transition);
+      background: none;
+      color: var(--muted);
+    }
+
+    .unit-btn.active {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .input-wrap { position: relative; }
+
+    .prefix, .suffix {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color var(--transition);
+    }
+
+    .prefix { left: 14px; }
+    .suffix { right: 14px; font-size: 0.75rem; letter-spacing: 0.04em; }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 14px 52px 14px 36px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    input[type="number"]::placeholder { color: var(--muted); }
+
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .input-wrap:focus-within .prefix,
+    .input-wrap:focus-within .suffix { color: var(--accent); }
+
+    .btn-calculate {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: -0.01em;
+    }
+
+    .btn-calculate:hover {
+      background: #1ffdb8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--accent-glow);
+    }
+
+    .btn-calculate:active { transform: translateY(0); box-shadow: none; }
+
+    .results {
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .results.visible { display: flex; }
+
+    .results-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .result-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,229,160,0.2);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+    }
+
+    .result-main-label {
+      font-size: 0.7rem;
+      color: rgba(0,229,160,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .result-main-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem,5vw,2rem);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .result-main-sub {
+      font-size: 0.75rem;
+      color: rgba(0,229,160,0.5);
+      margin-top: 4px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.25rem;
+    }
+
+    .stat-name {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-badge {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .stat-badge.green {
+      background: rgba(0,229,160,0.08);
+      border-color: rgba(0,229,160,0.2);
+      color: var(--accent);
+    }
+
+    .disclaimer {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+      padding: 0.75rem 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .error-msg {
+      font-size: 0.85rem;
+      color: #ff6b6b;
+      text-align: center;
+      padding: 0.75rem;
+      background: rgba(255,107,107,0.08);
+      border: 1px solid rgba(255,107,107,0.2);
+      border-radius: var(--radius-sm);
+    }
+
+    .seo-section {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 clamp(1rem,4vw,3rem) 4rem;
+      width: 100%;
+    }
+
+    .seo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .seo-card h2 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .seo-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    footer .copyright {
+      color: var(--muted);
+      font-size: 0.8rem;
+      width: 100%;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      nav ul     { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">💡</div>
+      Smart<span>Finance</span>
+    </a>
+    <ul>
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="toggleMenu()">Finance</a>
+    <a href="#" onclick="toggleMenu()">AI Tools</a>
+    <a href="#" onclick="toggleMenu()">Calculators</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <main>
+    <div class="tool-card">
+
+      <div class="tool-header">
+        <div class="tool-icon">⚖️</div>
+        <div>
+          <h1>Ideal Weight Calculator</h1>
+          <p class="tool-subtitle">Estimate your healthy weight range by height</p>
+        </div>
+      </div>
+
+      <div class="unit-toggle">
+        <button class="unit-btn active" id="btnMetric"   onclick="setUnit('metric')">Metric (cm / kg)</button>
+        <button class="unit-btn"        id="btnImperial" onclick="setUnit('imperial')">Imperial (ft / lb)</button>
+      </div>
+
+      <div class="fields" id="fields">
+        <!-- injected by setUnit() -->
+      </div>
+
+      <button class="btn-calculate" onclick="calc()">Calculate Ideal Weight</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+    </div>
+  </main>
+
+  <section class="seo-section">
+    <div class="seo-card">
+      <h2>Ideal Weight Calculator</h2>
+      <p>Estimate your healthy body weight range based on height using the Devine formula. Supports both metric and imperial units. Results are general estimates — consult a healthcare professional for personalised advice.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">Smart Finance Tools</div>
+    <ul class="footer-links">
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">AI Tools</a></li>
+      <li><a href="#">Calculators</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
+  </footer>
+
+  <script>
+    let unit = 'metric';
+
+    function setUnit(u) {
+      unit = u;
+      document.getElementById('btnMetric').classList.toggle('active',   u === 'metric');
+      document.getElementById('btnImperial').classList.toggle('active', u === 'imperial');
+      renderFields();
+      const results = document.getElementById('results');
+      results.className = 'results';
+      results.innerHTML = '';
+    }
+
+    function renderFields() {
+      const f = document.getElementById('fields');
+      if (unit === 'metric') {
+        f.innerHTML = `
+          <div class="field-group">
+            <label for="height">Height</label>
+            <div class="input-wrap">
+              <span class="prefix">↕</span>
+              <input type="number" id="height" min="100" max="250" step="0.5"
+                     placeholder="175" inputmode="decimal" autocomplete="off">
+              <span class="suffix">cm</span>
+            </div>
+          </div>`;
+      } else {
+        f.innerHTML = `
+          <div class="field-group" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <label for="feet">Feet</label>
+              <div class="input-wrap">
+                <span class="prefix">↕</span>
+                <input type="number" id="feet" min="3" max="8" step="1"
+                       placeholder="5" inputmode="numeric" autocomplete="off">
+                <span class="suffix">ft</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <label for="inches">Inches</label>
+              <div class="input-wrap">
+                <span class="prefix">+</span>
+                <input type="number" id="inches" min="0" max="11" step="1"
+                       placeholder="9" inputmode="numeric" autocomplete="off">
+                <span class="suffix">in</span>
+              </div>
+            </div>
+          </div>`;
+      }
+    }
+
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(e) {
+      const menu      = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    function fmt1(n) { return parseFloat(n.toFixed(1)).toLocaleString('en-US'); }
+    function fmt(n)  { return parseFloat(n.toFixed(1)); }
+
+    function calc() {
+      const results = document.getElementById('results');
+      results.className = 'results';
+      results.innerHTML = '';
+
+      let heightCm;
+
+      if (unit === 'metric') {
+        const hVal = document.getElementById('height').value.trim();
+        if (!hVal) return showError(results, 'Please enter your height.');
+        heightCm = parseFloat(hVal);
+        if (isNaN(heightCm) || heightCm < 100 || heightCm > 250)
+          return showError(results, 'Please enter a height between 100 and 250 cm.');
+      } else {
+        const fVal = document.getElementById('feet').value.trim();
+        const iVal = document.getElementById('inches').value.trim();
+        if (!fVal) return showError(results, 'Please enter your height in feet.');
+        const feet   = parseFloat(fVal)  || 0;
+        const inches = parseFloat(iVal)  || 0;
+        heightCm = (feet * 12 + inches) * 2.54;
+        if (heightCm < 100 || heightCm > 250)
+          return showError(results, 'Please enter a realistic height.');
+      }
+
+      // Devine formula (gender-neutral midpoint)
+      // Male:   50   + 2.3 * (height_in - 60)
+      // Female: 45.5 + 2.3 * (height_in - 60)
+      // We show both + a healthy BMI range
+      const heightIn  = heightCm / 2.54;
+      const idealMale = 50   + 2.3 * (heightIn - 60);
+      const idealFem  = 45.5 + 2.3 * (heightIn - 60);
+      const midpoint  = (idealMale + idealFem) / 2;
+
+      // Healthy BMI range (18.5 – 24.9) in kg
+      const hM        = heightCm / 100;
+      const bmiLow    = 18.5 * hM * hM;
+      const bmiHigh   = 24.9 * hM * hM;
+
+      // Convert for imperial display
+      const midLb     = midpoint  * 2.20462;
+      const bmiLowLb  = bmiLow   * 2.20462;
+      const bmiHighLb = bmiHigh  * 2.20462;
+
+      const mainVal = unit === 'metric'
+        ? `${fmt(midpoint)} kg`
+        : `${fmt(midLb)} lb`;
+
+      const rangeVal = unit === 'metric'
+        ? `${fmt(bmiLow)} – ${fmt(bmiHigh)} kg`
+        : `${fmt(bmiLowLb)} – ${fmt(bmiHighLb)} lb`;
+
+      const altVal = unit === 'metric'
+        ? `${fmt(idealMale)} kg ♂ / ${fmt(idealFem)} kg ♀`
+        : `${fmt(idealMale * 2.20462)} lb ♂ / ${fmt(idealFem * 2.20462)} lb ♀`;
+
+      results.innerHTML = `
+        <span class="results-label">Result</span>
+
+        <div class="result-main">
+          <div>
+            <div class="result-main-label">Ideal Weight (Devine)</div>
+            <div class="result-main-value">${mainVal}</div>
+            <div class="result-main-sub">for ${fmt(heightCm)} cm height</div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div>
+            <div class="stat-name">Healthy BMI Range</div>
+            <div class="stat-value">${rangeVal}</div>
+          </div>
+          <span class="stat-badge green">BMI 18.5–24.9</span>
+        </div>
+
+        <div class="stat-row">
+          <div>
+            <div class="stat-name">By Sex (Devine)</div>
+            <div class="stat-value" style="font-size:0.95rem">${altVal}</div>
+          </div>
+          <span class="stat-badge">formula</span>
+        </div>
+
+        <p class="disclaimer">⚕️ This is a general estimate. Ideal weight varies by age, muscle mass, and body composition. Consult a healthcare professional for personalised advice.</p>
+      `;
+
+      results.classList.add('visible');
+    }
+
+    function showError(el, msg) {
+      el.classList.add('visible');
+      el.innerHTML = `<p class="error-msg">${msg}</p>`;
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') calc();
+    });
+
+    // Init
+    renderFields();
+  </script>
+
+</body>
+</html>
+```
