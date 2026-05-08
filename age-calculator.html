@@ -1,12 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- SEO -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Age Calculator — Smart Finance Tools</title>
+
+  <title>Free Age Calculator Online | Calculate Exact Age Instantly</title>
+
+  <meta name="description" content="Free online age calculator. Calculate your exact age in years, months, and days instantly. Simple, fast, accurate, and mobile friendly.">
+
+  <meta name="keywords" content="age calculator, calculate age, birthday calculator, exact age calculator, online age calculator, age in years months days, free age calculator">
+
+  <meta name="robots" content="index, follow">
+
+  <meta name="author" content="Smart Finance Tools">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Age Calculator Online | Smart Finance Tools">
+  <meta property="og:description" content="Calculate your exact age in years, months, and days instantly with our free online age calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://TU-DOMINIO.com/age-calculator.html">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Age Calculator Online">
+  <meta name="twitter:description" content="Calculate your exact age instantly with our free online calculator.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://TU-DOMINIO.com/age-calculator.html">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Age Calculator",
+    "url": "https://TU-DOMINIO.com/age-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "description": "Free online age calculator that calculates exact age in years, months and days.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -50,7 +97,6 @@
       z-index: 0;
     }
 
-    /* NAV */
     nav {
       position: sticky;
       top: 0;
@@ -62,7 +108,6 @@
       height: 64px;
       background: rgba(10,10,15,0.85);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -70,7 +115,6 @@
       font-family: var(--font-display);
       font-size: 1.1rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
       color: var(--text);
       text-decoration: none;
       display: flex;
@@ -88,13 +132,12 @@
       display: grid;
       place-items: center;
       font-size: 14px;
-      flex-shrink: 0;
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: clamp(0.5rem,2vw,2rem);
+      gap: 2rem;
       align-items: center;
     }
 
@@ -103,69 +146,16 @@
       text-decoration: none;
       font-size: 0.875rem;
       font-weight: 500;
-      transition: color var(--transition);
-      white-space: nowrap;
     }
 
-    nav ul a:hover { color: var(--text); }
-
     .nav-cta {
-      background: var(--accent) !important;
+      background: var(--accent);
       color: #000 !important;
       padding: 7px 16px;
       border-radius: 8px;
-      font-weight: 600 !important;
-      font-size: 0.8rem !important;
+      font-weight: 700;
     }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      border: none;
-      background: none;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all var(--transition);
-    }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 64px;
-      left: 0; right: 0;
-      background: rgba(10,10,15,0.97);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem;
-      z-index: 99;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-sm);
-      transition: all var(--transition);
-    }
-
-    .mobile-menu a:hover { color: var(--text); background: var(--surface); }
-
-    /* MAIN */
     main {
       position: relative;
       z-index: 1;
@@ -175,7 +165,6 @@
       padding: clamp(2rem,6vw,5rem) clamp(1rem,4vw,3rem);
     }
 
-    /* CARD */
     .tool-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -186,7 +175,6 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      animation: fadeUp 0.5s ease both;
     }
 
     .tool-header {
@@ -203,24 +191,19 @@
       display: grid;
       place-items: center;
       font-size: 24px;
-      flex-shrink: 0;
     }
 
     .tool-header h1 {
       font-family: var(--font-display);
-      font-size: clamp(1.3rem,4vw,1.7rem);
+      font-size: 1.7rem;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text);
     }
 
     .tool-subtitle {
       font-size: 0.85rem;
       color: var(--muted);
-      margin-top: 2px;
     }
 
-    /* FORM */
     .field-group {
       display: flex;
       flex-direction: column;
@@ -232,7 +215,6 @@
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
     }
 
     input[type="date"] {
@@ -242,10 +224,8 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
-      font-family: var(--font-body);
       font-size: 1rem;
       outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition);
       color-scheme: dark;
     }
 
@@ -261,30 +241,17 @@
       color: #000;
       border: none;
       border-radius: var(--radius-sm);
-      font-family: var(--font-display);
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all var(--transition);
-      letter-spacing: -0.01em;
     }
 
-    .btn-calculate:hover {
-      background: #00ffb3;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,229,160,0.25);
-    }
-
-    .btn-calculate:active { transform: translateY(0); }
-
-    /* RESULT */
     .result {
       display: none;
       flex-direction: column;
       gap: 1rem;
       padding-top: 0.5rem;
       border-top: 1px solid var(--border);
-      animation: fadeUp 0.4s ease both;
     }
 
     .result.visible { display: flex; }
@@ -303,22 +270,16 @@
       text-align: center;
     }
 
-    .result-box .number {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem,4vw,2rem);
+    .number {
+      font-size: 2rem;
       font-weight: 800;
       color: var(--accent);
-      display: block;
-      line-height: 1;
     }
 
-    .result-box .unit {
+    .unit {
       font-size: 0.7rem;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 4px;
-      display: block;
     }
 
     .result-summary {
@@ -327,210 +288,161 @@
       text-align: center;
     }
 
-    .result-summary strong { color: var(--text); }
-
-    .error-msg {
-      font-size: 0.85rem;
-      color: #ff6b6b;
-      text-align: center;
-      padding: 0.75rem;
-      background: rgba(255,107,107,0.08);
-      border: 1px solid rgba(255,107,107,0.2);
-      border-radius: var(--radius-sm);
+    .seo-text {
+      max-width: 850px;
+      margin: 3rem auto 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
     }
 
-    /* FOOTER */
     footer {
-      position: relative;
-      z-index: 1;
       border-top: 1px solid var(--border);
-      padding: clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,3rem);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-weight: 700;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      transition: color var(--transition);
-    }
-
-    .footer-links a:hover { color: var(--text); }
-
-    footer .copyright {
-      color: var(--muted);
-      font-size: 0.8rem;
-      width: 100%;
+      padding: 2rem;
       text-align: center;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 640px) {
-      nav ul     { display: none; }
-      .hamburger { display: flex; }
+      color: var(--muted);
+      font-size: 0.8rem;
     }
   </style>
 </head>
+
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">💡</div>
-      Smart<span>Finance</span>
-    </a>
-    <ul>
-      <li><a href="#">Finance</a></li>
-      <li><a href="#">AI Tools</a></li>
-      <li><a href="#">Calculators</a></li>
-      <li><a href="#" class="nav-cta">Contact</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">💡</div>
+    Smart<span>Finance</span>
+  </a>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#" onclick="toggleMenu()">Finance</a>
-    <a href="#" onclick="toggleMenu()">AI Tools</a>
-    <a href="#" onclick="toggleMenu()">Calculators</a>
-    <a href="#" onclick="toggleMenu()">Contact</a>
-  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html">Calculators</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
 
-  <main>
+<main>
+
+  <div>
+
     <div class="tool-card">
 
       <div class="tool-header">
         <div class="tool-icon">🎂</div>
+
         <div>
           <h1>Age Calculator</h1>
-          <p class="tool-subtitle">Find your exact age instantly</p>
+          <p class="tool-subtitle">Calculate your exact age instantly</p>
         </div>
       </div>
 
       <div class="field-group">
         <label for="birth">Date of Birth</label>
-        <input type="date" id="birth" />
+        <input type="date" id="birth">
       </div>
 
-      <button class="btn-calculate" onclick="calculate()">Calculate Age</button>
+      <button class="btn-calculate" onclick="calculate()">
+        Calculate Age
+      </button>
 
-      <div class="result" id="result" aria-live="polite"></div>
+      <div class="result" id="result"></div>
 
     </div>
-  </main>
 
-  <footer>
-    <div class="footer-brand">Smart Finance Tools</div>
-    <ul class="footer-links">
-      <li><a href="#">Finance</a></li>
-      <li><a href="#">AI Tools</a></li>
-      <li><a href="#">Calculators</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <p class="copyright">© 2026 Smart Finance Tools — Free online tools for everyone.</p>
-  </footer>
+    <!-- SEO TEXT -->
+    <div class="seo-text">
 
-  <script>
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
+      <h2>Free Online Age Calculator</h2>
 
-    document.addEventListener('click', function(e) {
-      const menu = document.getElementById('mobileMenu');
-      const hamburger = document.querySelector('.hamburger');
-      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-        menu.classList.remove('open');
-      }
-    });
+      <p>
+        Use this free age calculator to calculate your exact age in years,
+        months, and days. Simply enter your date of birth and instantly
+        see accurate results.
+      </p>
 
-    // Age calculator
-    function calculate() {
-      const input  = document.getElementById('birth').value;
-      const result = document.getElementById('result');
+      <p>
+        Our online age calculator works on mobile, tablet, and desktop
+        devices. It is fast, simple, and completely free to use.
+      </p>
 
-      result.className = 'result';
-      result.innerHTML = '';
+      <p>
+        You can use this tool to calculate birthday age, current age,
+        or the number of days and months since birth.
+      </p>
 
-      if (!input) {
-        result.classList.add('visible');
-        result.innerHTML = '<p class="error-msg">Please select your date of birth.</p>';
-        return;
-      }
+    </div>
 
-      const birth = new Date(input);
-      const today = new Date();
+  </div>
 
-      if (birth > today) {
-        result.classList.add('visible');
-        result.innerHTML = '<p class="error-msg">Date of birth cannot be in the future.</p>';
-        return;
-      }
+</main>
 
-      let years  = today.getFullYear() - birth.getFullYear();
-      let months = today.getMonth()    - birth.getMonth();
-      let days   = today.getDate()     - birth.getDate();
+<footer>
+  © 2026 Smart Finance Tools — Free online calculators and AI tools.
+</footer>
 
-      if (days < 0) {
-        months--;
-        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      }
-      if (months < 0) { years--; months += 12; }
+<script>
 
-      const totalMonths = years * 12 + months;
-      const totalDays   = Math.floor((today - birth) / 86400000);
+function calculate() {
 
-      result.classList.add('visible');
-      result.innerHTML = `
-        <div class="result-grid">
-          <div class="result-box">
-            <span class="number">${years}</span>
-            <span class="unit">Years</span>
-          </div>
-          <div class="result-box">
-            <span class="number">${months}</span>
-            <span class="unit">Months</span>
-          </div>
-          <div class="result-box">
-            <span class="number">${days}</span>
-            <span class="unit">Days</span>
-          </div>
-        </div>
-        <p class="result-summary">
-          That's <strong>${totalMonths.toLocaleString()} months</strong> or
-          <strong>${totalDays.toLocaleString()} days</strong> since you were born.
-        </p>
-      `;
-    }
+  const input = document.getElementById('birth').value;
+  const result = document.getElementById('result');
 
-    document.getElementById('birth').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') calculate();
-    });
-  </script>
+  if (!input) {
+    result.className = 'result visible';
+    result.innerHTML = '<p>Please select your birth date.</p>';
+    return;
+  }
+
+  const birth = new Date(input);
+  const today = new Date();
+
+  let years = today.getFullYear() - birth.getFullYear();
+  let months = today.getMonth() - birth.getMonth();
+  let days = today.getDate() - birth.getDate();
+
+  if (days < 0) {
+    months--;
+    days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const totalMonths = years * 12 + months;
+  const totalDays = Math.floor((today - birth) / 86400000);
+
+  result.className = 'result visible';
+
+  result.innerHTML = `
+    <div class="result-grid">
+
+      <div class="result-box">
+        <div class="number">${years}</div>
+        <div class="unit">Years</div>
+      </div>
+
+      <div class="result-box">
+        <div class="number">${months}</div>
+        <div class="unit">Months</div>
+      </div>
+
+      <div class="result-box">
+        <div class="number">${days}</div>
+        <div class="unit">Days</div>
+      </div>
+
+    </div>
+
+    <p class="result-summary">
+      ${totalMonths.toLocaleString()} total months •
+      ${totalDays.toLocaleString()} total days
+    </p>
+  `;
+}
+
+</script>
 
 </body>
 </html>
